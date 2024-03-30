@@ -32,6 +32,7 @@ Appendix A: The MIT License
 The MIT License (MIT)
 
 Copyright (c) 2023, CKSource Holding sp. z o.o. All rights reserved.
+Copyright (c) 2022, Tahsin Gökalp Şaan
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal

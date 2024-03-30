@@ -2,3 +2,5 @@ vendor/
 _connector/
 public/
 composer.lock
+.idea
+build

@@ -4,7 +4,6 @@ namespace CKSource\CKFinderBridge\Command;
 
 use Illuminate\Console\Command;
 use Illuminate\Filesystem\Filesystem;
-use Symfony\Component\HttpKernel\Kernel;
 
 class CKFinderDownloadCommand extends Command
 {
@@ -21,7 +20,7 @@ class CKFinderDownloadCommand extends Command
      */
     protected function buildPackageUrl()
     {
-        return "http://download.cksource.com/CKFinder/CKFinder%20for%20PHP/" . self::LATEST_VERSION . "/ckfinder_php_" . self::LATEST_VERSION . ".zip";
+        return 'http://download.cksource.com/CKFinder/CKFinder%20for%20PHP/'.self::LATEST_VERSION.'/ckfinder_php_'.self::LATEST_VERSION.'.zip';
     }
 
     /**
@@ -29,28 +28,28 @@ class CKFinderDownloadCommand extends Command
      */
     public function handle()
     {
-        $targetPublicPath = realpath(__DIR__ . '/../../public/');
+        $targetPublicPath = realpath(__DIR__.'/../../public/');
 
-        if (!is_writable($targetPublicPath)) {
-            $this->error('The target public directory is not writable (used path: ' . $targetPublicPath . ').');
+        if (! is_writable($targetPublicPath)) {
+            $this->error('The target public directory is not writable (used path: '.$targetPublicPath.').');
 
             return;
         }
 
-        $targetConnectorPath = realpath(__DIR__ . '/../../_connector');
+        $targetConnectorPath = realpath(__DIR__.'/../../_connector');
 
-        if (!is_writable($targetConnectorPath)) {
-            $this->error('The the connector directory is not writable (used path: ' . $targetConnectorPath . ').');
+        if (! is_writable($targetConnectorPath)) {
+            $this->error('The the connector directory is not writable (used path: '.$targetConnectorPath.').');
 
             return;
         }
 
         if (file_exists($targetPublicPath.'/ckfinder/ckfinder.js')) {
             $questionText =
-                'It looks like the CKFinder distribution package has already been installed. ' .
+                'It looks like the CKFinder distribution package has already been installed. '.
                 "This command will overwrite the existing files.\nDo you want to proceed? [y/n]: ";
 
-            if (!$this->confirm($questionText)) {
+            if (! $this->confirm($questionText)) {
                 return;
             }
         }
@@ -60,18 +59,17 @@ class CKFinderDownloadCommand extends Command
 
         $maxBytes = 0;
         $ctx = stream_context_create([], [
-            'notification' =>
-                function ($notificationCode, $severity, $message, $messageCode, $bytesTransferred, $bytesMax) use (&$maxBytes, &$progressBar) {
-                    switch ($notificationCode) {
-                        case STREAM_NOTIFY_FILE_SIZE_IS:
-                            $maxBytes = $bytesMax;
-                            $progressBar = $this->output->createProgressBar($bytesMax);
-                            break;
-                        case STREAM_NOTIFY_PROGRESS:
-                            $progressBar->setProgress($bytesTransferred);
-                            break;
-                    }
+            'notification' => function ($notificationCode, $severity, $message, $messageCode, $bytesTransferred, $bytesMax) use (&$maxBytes, &$progressBar) {
+                switch ($notificationCode) {
+                    case STREAM_NOTIFY_FILE_SIZE_IS:
+                        $maxBytes = $bytesMax;
+                        $progressBar = $this->output->createProgressBar($bytesMax);
+                        break;
+                    case STREAM_NOTIFY_PROGRESS:
+                        $progressBar->setProgress($bytesTransferred);
+                        break;
                 }
+            },
         ]);
 
         $this->info('Downloading the CKFinder 3 distribution package.');
@@ -88,7 +86,7 @@ class CKFinderDownloadCommand extends Command
             $progressBar->finish();
         }
 
-        $this->line("\n" . 'Extracting CKFinder to the ' . $targetPublicPath . ' directory.');
+        $this->line("\n".'Extracting CKFinder to the '.$targetPublicPath.' directory.');
 
         $tempZipFile = tempnam(sys_get_temp_dir(), 'tmp');
         file_put_contents($tempZipFile, $zipContents);
@@ -100,13 +98,13 @@ class CKFinderDownloadCommand extends Command
         // These files won't be overwritten if already exists
         $filesToKeep = [
             'ckfinder/config.js',
-            'ckfinder/ckfinder.html'
+            'ckfinder/ckfinder.html',
         ];
 
         for ($i = 0; $i < $zip->numFiles; $i++) {
             $entry = $zip->getNameIndex($i);
 
-            if (in_array($entry, $filesToKeep) && file_exists($targetPublicPath . '/' . $entry)) {
+            if (in_array($entry, $filesToKeep) && file_exists($targetPublicPath.'/'.$entry)) {
                 continue;
             }
 
@@ -117,9 +115,9 @@ class CKFinderDownloadCommand extends Command
 
         $fs = new Filesystem();
 
-        $this->line('Moving the CKFinder connector to the ' . $targetConnectorPath . ' directory.');
+        $this->line('Moving the CKFinder connector to the '.$targetConnectorPath.' directory.');
         $fs->moveDirectory(
-            $targetPublicPath . '/ckfinder/core/connector/php/vendor/cksource/ckfinder/src/CKSource/CKFinder',
+            $targetPublicPath.'/ckfinder/core/connector/php/vendor/cksource/ckfinder/src/CKSource/CKFinder',
             $targetConnectorPath,
             true
         );
@@ -128,14 +126,13 @@ class CKFinderDownloadCommand extends Command
 
         $fs->delete([
             $tempZipFile,
-            $targetPublicPath . '/ckfinder/config.php',
-            $targetPublicPath . '/ckfinder/README.md',
-            $targetConnectorPath . '/README.md'
+            $targetPublicPath.'/ckfinder/config.php',
+            $targetPublicPath.'/ckfinder/README.md',
+            $targetConnectorPath.'/README.md',
         ]);
 
-        $fs->deleteDirectory($targetPublicPath . '/ckfinder/core');
-        $fs->deleteDirectory($targetPublicPath . '/ckfinder/userfiles');
-
+        $fs->deleteDirectory($targetPublicPath.'/ckfinder/core');
+        $fs->deleteDirectory($targetPublicPath.'/ckfinder/userfiles');
 
         $this->info('Done. Happy coding!');
     }

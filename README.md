@@ -1,15 +1,8 @@
-<h3 align="center"><img src="https://user-images.githubusercontent.com/803299/42567830-6b6d3ad6-850b-11e8-9151-43021c92d8b7.png"></h3>
+# CKFinder 3 Package for Laravel
 
-# CKFinder 3 Package for Laravel 9+ [![Tweet](https://img.shields.io/twitter/url/http/shields.io.svg?style=social)](https://twitter.com/intent/tweet?text=Check%20out%20CKFinder%20package%20for%20Laravel%20&url=https://github.com/ckfinder/ckfinder-laravel-package)
-
-[![Laravel version](https://img.shields.io/badge/Laravel-9+-green.svg)]()
 [![License](https://img.shields.io/badge/license-MIT-blue.svg)](https://opensource.org/licenses/MIT)
-[![Packagist](https://img.shields.io/packagist/v/ckfinder/ckfinder-laravel-package.svg)](https://packagist.org/packages/ckfinder/ckfinder-laravel-package)
-[![Packagist](https://img.shields.io/packagist/dt/ckfinder/ckfinder-laravel-package.svg)](https://packagist.org/packages/ckfinder/ckfinder-laravel-package)
-[![Join newsletter](https://img.shields.io/badge/join-newsletter-00cc99.svg)](http://eepurl.com/c3zRPr)
-[![Follow twitter](https://img.shields.io/badge/follow-twitter-00cc99.svg)](https://twitter.com/ckeditor)
-
-This repository contains the CKFinder 3 Package for Laravel 9+. If you are looking for a package for older version of Laravel, please use [version 3](https://github.com/ckfinder/ckfinder-laravel-package/tree/v3.x.x).
+[![Packagist](https://img.shields.io/packagist/v/tahsingokalp/laravel-ckfinder.svg)](https://packagist.org/packages/tahsingokalp/laravel-ckfinder)
+[![Packagist](https://img.shields.io/packagist/dt/tahsingokalp/laravel-ckfinder.svg)](https://packagist.org/packages/tahsingokalp/laravel-ckfinder)
 
 <h3 align="center"><a href="https://ckeditor.com/docs/ckfinder/demo/ckfinder3/samples/widget.html"><img src="https://user-images.githubusercontent.com/803299/42693315-18717aae-86af-11e8-863a-74070edb3912.png"></a></h3>
 
@@ -18,7 +11,7 @@ This repository contains the CKFinder 3 Package for Laravel 9+. If you are looki
 1. Add a Composer dependency and install the package.
 
     ```bash
-    composer require ckfinder/ckfinder-laravel-package
+    composer require tahsingokalp/laravel-ckfinder
     ```
 
 2. Run the command to download the CKFinder code.
